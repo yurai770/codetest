@@ -1,5 +1,5 @@
 import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
@@ -7,9 +7,7 @@ import java.util.StringTokenizer;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        // BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
-        BufferedReader bf = new BufferedReader(
-                new FileReader("C:/Users/SSAFY/Desktop/code/Backjon/09370_UnidentifiedDestination/src/1.txt"));
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
         int TEST = Integer.parseInt(bf.readLine());
         StringBuilder sb = new StringBuilder();
         StringTokenizer st;
@@ -66,23 +64,6 @@ public class Main {
                     break;
                 }
             }
-
-            // 디버깅 하기
-            sb.append(tc).append("번\n");
-            for (int i : allDijkstra) {
-                sb.append(i).append(" ");
-            }
-            sb.append("\n");
-            for (int i : gDijkstra) {
-                sb.append(i).append(" ");
-            }
-            sb.append("\n");
-            for (int i : hDijkstra) {
-                sb.append(i).append(" ");
-            }
-            sb.append("\n");
-            sb.append(loadGH).append("\n\n");
-            // 디버깅 종료
 
             for (int D : destinations) {
                 int loadS_G_H_D = allDijkstra.get(G) + loadGH + hDijkstra.get(D);
@@ -145,10 +126,10 @@ class DijNode implements Comparable<DijNode> {
     // 비교시 오름차순 1. 비용 2. 번호
     @Override
     public int compareTo(DijNode o) {
-        if (o.getCost() - cost == 0) {
-            return o.getNodeNum() - nodeNum;
+        if (cost - o.getCost() == 0) {
+            return nodeNum - o.getNodeNum();
         }
-        return o.getCost() - cost;
+        return cost - o.getCost();
     }
 
     public int getNodeNum() {
